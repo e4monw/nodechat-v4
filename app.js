@@ -104,6 +104,21 @@ io.on('connection', function(socket){
             console.log(nick + ' joined the conversation');
         }
     });
+    socket.on('permban', function(user){
+        io.emit('permban', user);
+        io.emit('chat message', {nickname: '', message: user+' was permanently banned!'} )
+        console.log(user+' was permanently banned!');
+    });
+    socket.on('mute', function(user){
+        io.emit('mute', user);
+        io.emit('chat message', {nickname: '', message: user+' was muted!'})
+        console.log(user+' was muted!');
+    });
+    socket.on('motd', function(motd){
+        messageoftheday = motd;
+        console.log('MOTD changed to: ' + messageoftheday);
+        io.emit('motd', messageoftheday);
+    })
     socket.on('getmotd', function(){
         socket.emit('motd', messageoftheday);
     });
