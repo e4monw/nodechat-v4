@@ -154,6 +154,11 @@ $("form").submit(function() {
                 appendMessage("/tell [username] [message]\tsend a private message");
                 appendMessage("/operator [password]\t become the operator, you will need to know the server password");
                 appendMessage("Operators have a @ as the first character in their username");
+                if (admin) {
+                  appendMessage("/mute [user]\tmute specified user. Effect disabled upon page reload.")
+                  appendMessage("/permban [user]\tban user from localstorage.")
+                  appendMessage("/motd\t change message of the day.")
+                }
             }
             if (admin) {
                 // ADMIN COMMANDS
