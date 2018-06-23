@@ -27,18 +27,8 @@ socket.emit("getmotd", function(motd) {
 });
 var randomnumber = Math.floor(Math.random()*10000)
 
-if (localStorage.banned) while (true) alert("You have been permanently banned from this server!");
-
 if(localStorage.defaultNick && localStorage.defaultNick.charAt(0) == '@') localStorage.defaultNick = localStorage.defaultNick.slice(1)
 var nick = localStorage.defaultNick || "guest" + randomnumber;
-
-if ("" == nick.trim() || nick.length < 3) {
-    alert("Nickname too short");
-    location.reload();
-}else if (nick.length > 12) {
-    alert("Nickname too long");
-    location.reload();
-}
 
 var admin = false;
 var chatroom = "lobby";
@@ -113,7 +103,6 @@ $("form").submit(function() {
 
                 }
             }
-<<<<<<< HEAD
             else if (a.search(/^users/) != -1) {
                 a = a.replace(/users\s/, "");
                 socket.emit("getusers");
@@ -162,21 +151,6 @@ $("form").submit(function() {
                 appendMessage("/tell [username] [message]\tsend a private message");
                 appendMessage("/operator [password]\t become the operator, you will need to know the server password");
                 appendMessage("Operators have a @ as the first character in their username");
-=======
-        }
-        if (a.search(/clear/) != -1) {
-            clearChat();
-        }
-        if (admin) {
-            // ADMIN COMMANDS
-            if (a.search(/permban/) != -1) {
-                a = a.replace(/permban\s/, "");
-                if (a != nick) socket.emit("permban", a);
-            }
-            if (a.search(/mute/) != -1) {
-                a = a.replace(/mute\s/, "");
-                if (a != nick) socket.emit("mute", a);
->>>>>>> parent of 628fc4e... removed permbanning
             }
             if (admin) {
                 // ADMIN COMMANDS
@@ -218,13 +192,6 @@ socket.on("usernametaken", function(username) {
 socket.on("update nick", function(newNick){
     nick = newNick;
     localStorage.defaultNick = newNick;
-});
-
-socket.on("permban", function(username) {
-    if (nick == username) {
-        localStorage.banned = true;
-        location.reload();
-    }
 });
 
 socket.on("mute", function(username) {
