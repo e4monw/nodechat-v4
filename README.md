@@ -1,7 +1,5 @@
 # nodechat
-Node.js chat server... on version 3 now! we are making it more efficient, faster and better :)
-
-Based off the tutorial code from socket.io
+Node.js chat server now on v4.
 
 developed by fatbu and EamonWong
 
