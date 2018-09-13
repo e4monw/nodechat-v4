@@ -41,10 +41,17 @@
  });
  </script>
   <script>
+  Notification.requestPermission();
   $(window).bind('beforeunload', function() {
        return "";
            });
   $(document).ready(function() {
+      if (!Notification) {
+        alert('Desktop notifications not available in your browser. Try Chromium.');
+        return;
+      }
+        Notification.requestPermission();
+
 
   var active1 = false;
   var active2 = false;

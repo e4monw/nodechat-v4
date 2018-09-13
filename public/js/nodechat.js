@@ -15,6 +15,25 @@ function appendMessage(txt) {
     window.scrollTo(0,document.body.scrollHeight);
 }
 
+
+function notify() {
+  Notification.requestPermission();
+  if (Notification.permission !== "granted")
+    Notification.requestPermission();
+  else {
+    var notification = new Notification('Nodechat-V4', {
+      icon: '',
+      body: "You've received a message!",
+    });
+    setTimeout(notification.close.bind(notification), 2000)
+    notification.onclick = function () {
+      window.open("");
+    };
+
+  }
+
+}
+
 var ready = false;
 
 appendMessage("Connecting...");
@@ -51,15 +70,18 @@ socket.on("verified", function() {
 socket.on("chat message", function(msg) {
     if(msg.nickname && msg.chatroom == chatroom){
         appendMessage("[" + msg.chatroom + "] " + msg.nickname +  ": " + msg.message);
+        notify();
     }else{
         // Announcements
         appendMessage(msg.message);
+
     }
 });
 
 socket.on("tell", function(msg){
     if(msg.recipient == nick){
         appendMessage(msg.nick + ' -> ' + 'you : ' + msg.message);
+        notify();
     }else if(msg.nick == nick){
         appendMessage("You -> " + msg.recipient + " : " + msg.message);
     }
@@ -91,7 +113,7 @@ $("form").submit(function() {
     var a = $("#m").val();
     if(okToSend){
         okToSend = false;
-        setTimeout(function(){okToSend = true}, 400);
+        setTimeout(function(){okToSend = true}, 800);
         if ("/" == a.charAt(0)) {
             // COMMANDS
             a = a.slice(1);
