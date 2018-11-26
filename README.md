@@ -1,11 +1,11 @@
 # nodechat
 Node.js chat server now on v4.
 
-developed by fatbu and EamonWong
+developed by fatbu and e4monw
 
 Download and setup:
 ```
-git clone https://github.com/fatbu/nodechat && cd nodechat && npm install
+git clone https://github.com/e4monw/nodechat-v4 && cd nodechat && npm install
 ```
 
 How to start the server:
